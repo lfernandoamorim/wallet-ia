@@ -11,3 +11,5 @@ Pre-flight scan:
 | Task 4 self | `POST /users/` | Agree |
 Scan is clean.
 
+Task 1: minor (deferred): test_config.py - incluir testes com variáveis de ambiente dinâmicas (monkeypatch)
+Task 1: complete (commits bb8e343..3cbb5c0, review clean)

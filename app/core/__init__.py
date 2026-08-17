@@ -1,1 +1,1 @@
-# Pacote do modulo core da aplicacao
+"""Módulo core com configurações centrais, base de dados e modelos."""
