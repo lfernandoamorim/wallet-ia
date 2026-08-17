@@ -1,3 +1,4 @@
+import pytest
 from fastapi.testclient import TestClient
 from unittest.mock import AsyncMock, MagicMock
 from app.main import app
@@ -12,7 +13,11 @@ async def override_get_session():
     # não vao dar erro.
     yield mock_session
 
-app.dependency_overrides[get_session] = override_get_session
+@pytest.fixture(autouse=True)
+def override_dependencies():
+    app.dependency_overrides[get_session] = override_get_session
+    yield
+    app.dependency_overrides.clear()
 
 client = TestClient(app)
 
@@ -23,7 +28,7 @@ def test_create_user():
         "password": "pwd"
     })
     
-    assert response.status_code == 200
+    assert response.status_code == 201
     data = response.json()
     assert data["email"] == "test@test.com"
     assert data["username"] == "test"

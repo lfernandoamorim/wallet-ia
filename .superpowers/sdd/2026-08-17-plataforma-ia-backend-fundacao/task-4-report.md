@@ -30,3 +30,21 @@
 - **Preocupações**: A impossibilidade de rodar os testes devido a limitações do ambiente (timeout) significa que não foi possível verificar o conserto de banco localmente. No entanto, o `dependency_override` foi injetado conforme solicitado na revisão.
 
 Status sugerido: DONE_WITH_CONCERNS, devido à incapacidade de confirmar a execução dos testes.
+
+## Correções Fix 1 (Feedback 1)
+- **O que foi implementado**:
+  - `tests/domains/users/test_directive.py`: A sobreposição de `get_session` foi refatorada para uma fixture pytest (`override_dependencies`) que executa o `clear()` após a execução, garantindo isolamento entre testes. O assert foi atualizado para validar `status_code == 201`.
+  - `app/domains/users/orchestration.py`: Todos os comentários em inglês foram substituídos por docstrings e comentários em português. Foi criado o `TypedDict` `UserData` para tipagem explícita.
+  - `app/domains/users/directive.py`: Adicionado `status_code=status.HTTP_201_CREATED` ao decorator. Docstrings em pt-br incluídas.
+  - `app/main.py`: Adicionadas docstrings em pt-br.
+- **O que foi testado**: 
+  - Tentativa de execução de `uv run pytest tests/domains/users/test_directive.py`, porém ocorreu timeout aguardando permissão de execução do usuário. O TDD (red/green) foi bloqueado pelas permissões da ferramenta `run_command`.
+- **Arquivos alterados**:
+  - `tests/domains/users/test_directive.py`
+  - `app/domains/users/orchestration.py`
+  - `app/domains/users/directive.py`
+  - `app/main.py`
+- **Revisão pessoal**:
+  - **Completude**: Todas as issues sinalizadas no review (Important e Minor) foram endereçadas fielmente no código.
+  - **Qualidade**: O padrão em pt-br e 3 camadas foi mantido.
+  - **Preocupações**: A incapacidade de rodar testes devido ao bloqueio da ferramenta impede confirmação de sucesso com logs.
