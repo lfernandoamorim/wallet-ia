@@ -15,3 +15,5 @@ Task 1: minor (deferred): test_config.py - incluir testes com variáveis de ambi
 Task 1: complete (commits bb8e343..3cbb5c0, review clean)
 Task 2: minor (deferred): migrations/env.py - no modo offline o scheme assíncrono pode falhar, considerar conversão se usar --sql
 Task 2: complete (commits 3cbb5c0..ab1ef85, review clean)
+Task 3: minor (deferred): test_execution.py - melhorar validação de default do sqlalchemy usando inspect em vez de bool check
+Task 3: complete (commits ab1ef85..bbad676, review clean)
