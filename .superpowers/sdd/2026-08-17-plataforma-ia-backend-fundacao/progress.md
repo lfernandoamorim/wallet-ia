@@ -13,3 +13,5 @@ Scan is clean.
 
 Task 1: minor (deferred): test_config.py - incluir testes com variáveis de ambiente dinâmicas (monkeypatch)
 Task 1: complete (commits bb8e343..3cbb5c0, review clean)
+Task 2: minor (deferred): migrations/env.py - no modo offline o scheme assíncrono pode falhar, considerar conversão se usar --sql
+Task 2: complete (commits 3cbb5c0..ab1ef85, review clean)
