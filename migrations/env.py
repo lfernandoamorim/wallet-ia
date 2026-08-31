@@ -8,6 +8,7 @@ from sqlalchemy import pool
 from sqlalchemy.engine import Connection
 from sqlalchemy.ext.asyncio import async_engine_from_config
 
+import app.core.models  # Registra todos os modelos ORM
 from app.core.base_model import Base
 from app.core.config import settings
 
