@@ -23,6 +23,7 @@ Certifique-se de ter as seguintes ferramentas instaladas no seu ambiente:
 
 1. **Python 3.12+**
 2. **`uv`** — Gerenciador de pacotes e ambientes virtuais Python:
+
    ```bash
    # Windows (PowerShell)
    powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
@@ -30,6 +31,7 @@ Certifique-se de ter as seguintes ferramentas instaladas no seu ambiente:
    # Linux/macOS
    curl -LsSf https://astral.sh/uv/install.sh | sh
    ```
+
 3. **PostgreSQL 16+** com extensão `pgvector` (ou container Docker).
 4. **Node.js 18+** e **npm** (para execução da interface web React).
 
@@ -38,12 +40,15 @@ Certifique-se de ter as seguintes ferramentas instaladas no seu ambiente:
 ## ⚙️ Configuração do Ambiente
 
 ### 1. Clonar o Repositório e Criar o Arquivo `.env`
+
 Copie o arquivo de exemplo para criar a sua configuração local:
+
 ```bash
 cp .env.example .env
 ```
 
 Edite o arquivo `.env` para ajustar suas credenciais de banco e chaves de segurança:
+
 ```env
 # Banco de Dados PostgreSQL com pgvector
 DATABASE_URL=postgresql+asyncpg://postgres:postgres@localhost:5432/appdb
@@ -60,13 +65,17 @@ STORAGE_PATH=./storage
 ```
 
 ### 2. Instalar as Dependências do Backend
+
 Utilize o `uv` para sincronizar automaticamente o ambiente virtual e as dependências:
+
 ```bash
 uv sync
 ```
 
 ### 3. Executar as Migrações do Banco de Dados
+
 Aplique o versionamento do esquema de banco de dados via Alembic:
+
 ```bash
 uv run alembic upgrade head
 ```
@@ -76,22 +85,30 @@ uv run alembic upgrade head
 ## 🚀 Como Executar o Projeto
 
 ### 1. Executando o Backend (API FastAPI)
+
 Inicie o servidor de desenvolvimento com reload automático:
+
 ```bash
+cd backend
+.venv\Scripts\activate
 uv run uvicorn backend.main:app --reload --host 0.0.0.0 --port 8000
 ```
+
 - **API Base:** `http://localhost:8000`
 - **Documentação Swagger Interativa:** `http://localhost:8000/docs`
 - **Documentação Redoc:** `http://localhost:8000/redoc`
 - **Health Check:** `http://localhost:8000/health`
 
 ### 2. Executando o Frontend (React + Vite)
+
 Navegue até o diretório `frontend/`, instale as dependências e inicie o servidor Vite:
+
 ```bash
 cd frontend
 npm install
 npm run dev
 ```
+
 - **Aplicação Web:** `http://localhost:3000` (ou porta indicada no terminal)
 
 ---
@@ -99,17 +116,23 @@ npm run dev
 ## 🧪 Como Executar os Testes
 
 ### Backend (Pytest)
+
 Para rodar toda a suíte de testes unitários e de integração do backend:
+
 ```bash
 uv run pytest
 ```
+
 Para rodar com verbosidade detalhada:
+
 ```bash
 uv run pytest -v
 ```
 
 ### Frontend (Vitest)
+
 Para rodar os testes da interface:
+
 ```bash
 cd frontend
 npm run test
