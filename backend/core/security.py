@@ -7,7 +7,7 @@ import bcrypt
 from cryptography.fernet import Fernet
 from jose import JWTError, jwt
 
-from backend.core.config import settings
+from core.config import settings
 
 
 def get_password_hash(password: str) -> str:

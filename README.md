@@ -64,19 +64,17 @@ REDIS_URL=redis://localhost:6379/0
 STORAGE_PATH=./storage
 ```
 
-### 2. Instalar as Dependências do Backend
-
-Utilize o `uv` para sincronizar automaticamente o ambiente virtual e as dependências:
-
+#### 2. Instalar as Dependências do Backend
+Navegue até a pasta `backend/` e utilize o `uv` para sincronizar automaticamente o ambiente virtual e as dependências:
 ```bash
+cd backend
 uv sync
 ```
 
 ### 3. Executar as Migrações do Banco de Dados
-
 Aplique o versionamento do esquema de banco de dados via Alembic:
-
 ```bash
+cd backend
 uv run alembic upgrade head
 ```
 
@@ -85,30 +83,23 @@ uv run alembic upgrade head
 ## 🚀 Como Executar o Projeto
 
 ### 1. Executando o Backend (API FastAPI)
-
-Inicie o servidor de desenvolvimento com reload automático:
-
+Entre na pasta `backend/` e inicie o servidor de desenvolvimento:
 ```bash
 cd backend
-.venv\Scripts\activate
-uv run uvicorn backend.main:app --reload --host 0.0.0.0 --port 8000
+uv run uvicorn main:app --reload --host 0.0.0.0 --port 8000
 ```
-
 - **API Base:** `http://localhost:8000`
 - **Documentação Swagger Interativa:** `http://localhost:8000/docs`
 - **Documentação Redoc:** `http://localhost:8000/redoc`
 - **Health Check:** `http://localhost:8000/health`
 
 ### 2. Executando o Frontend (React + Vite)
-
 Navegue até o diretório `frontend/`, instale as dependências e inicie o servidor Vite:
-
 ```bash
 cd frontend
 npm install
 npm run dev
 ```
-
 - **Aplicação Web:** `http://localhost:3000` (ou porta indicada no terminal)
 
 ---
@@ -116,23 +107,19 @@ npm run dev
 ## 🧪 Como Executar os Testes
 
 ### Backend (Pytest)
-
 Para rodar toda a suíte de testes unitários e de integração do backend:
-
 ```bash
+cd backend
 uv run pytest
 ```
-
 Para rodar com verbosidade detalhada:
-
 ```bash
+cd backend
 uv run pytest -v
 ```
 
 ### Frontend (Vitest)
-
 Para rodar os testes da interface:
-
 ```bash
 cd frontend
 npm run test
@@ -146,10 +133,14 @@ npm run test
 wallet-ia/
 ├── SPEC.md                             # Especificação técnica e arquitetural canônica
 ├── README.md                           # Guia de início rápido e instruções de execução
-├── pyproject.toml                      # Configuração de dependências Python (uv)
-├── alembic.ini                         # Configurações do Alembic
 │
-├── backend/                            # Código-fonte do Backend (Arquitetura em 3 Camadas)
+├── backend/                            # Módulo Autônomo do Backend (FastAPI + SQLAlchemy)
+│   ├── pyproject.toml                  # Configuração de dependências Python (uv)
+│   ├── alembic.ini                     # Configurações do Alembic
+│   ├── .env                            # Variáveis de ambiente
+│   ├── .env.example                    # Exemplo de configuração de ambiente
+│   ├── main.py                         # Ponto de entrada FastAPI
+│   │
 │   ├── core/                           # Núcleo compartilhado (config, database, security, RBAC)
 │   │   ├── config.py                   # Pydantic Settings
 │   │   ├── database.py                 # Engine assíncrono e sessões
@@ -157,24 +148,27 @@ wallet-ia/
 │   │   ├── permissions.py              # Catálogo de códigos de permissão
 │   │   └── models.py                   # Registro central dos modelos ORM
 │   │
-│   └── domains/                        # Módulos de Domínio (Directive -> Orchestration -> Execution)
-│       ├── auth/                       # Autenticação e sessão
-│       ├── users/                      # Gestão de usuários e superadmin
-│       ├── roles/                      # Papéis e matriz de permissões RBAC
-│       ├── providers/                  # Credenciais de provedores (OpenRouter, OpenAI, etc.)
-│       ├── knowledge_bases/            # RAG, ingestão (.md, .docx, .xlsx) e busca vetorial
-│       ├── agents/                     # Agentes com persona e modelos
-│       └── conversations/              # Chat interativo, streaming SSE e compartilhamento
+│   ├── domains/                        # Módulos de Domínio (Directive -> Orchestration -> Execution)
+│   │   ├── auth/                       # Autenticação e sessão
+│   │   ├── users/                      # Gestão de usuários e superadmin
+│   │   ├── roles/                      # Papéis e matriz de permissões RBAC
+│   │   ├── providers/                  # Credenciais de provedores (OpenRouter, OpenAI, etc.)
+│   │   ├── knowledge_bases/            # RAG, ingestão (.md, .docx, .xlsx) e busca vetorial
+│   │   ├── agents/                     # Agentes com persona e modelos
+│   │   └── conversations/              # Chat interativo, streaming SSE e compartilhamento
+│   │
+│   ├── migrations/                     # Migrações versionadas do banco (Alembic)
+│   └── tests/                          # Suíte de testes automatizados (Pytest)
 │
 ├── frontend/                           # Aplicação Web SPA (React + TypeScript + Tailwind)
+│   ├── package.json                    # Dependências npm
+│   ├── vite.config.ts                  # Configuração do Vite
 │   ├── src/
 │   │   ├── components/                 # Componentes reutilizáveis (UI, Layout, Chat, Agentes)
 │   │   ├── contexts/                   # AuthContext e ThemeContext
 │   │   ├── pages/                      # Telas da aplicação (Login, Chat, Admin, etc.)
 │   │   └── services/                   # Clientes HTTP e SSE
 │
-├── migrations/                         # Migrações versionadas do banco (Alembic)
-├── tests/                              # Suíte de testes automatizados
 └── docs/                               # Planos de implementação e histórico de design
 ```
 

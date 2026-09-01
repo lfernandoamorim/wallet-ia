@@ -2,8 +2,8 @@
 
 import pytest
 from unittest.mock import AsyncMock, MagicMock
-from backend.domains.agents.execution import Agent
-from backend.domains.agents.orchestration import create_agent, get_agent_by_id
+from domains.agents.execution import Agent
+from domains.agents.orchestration import create_agent, get_agent_by_id
 
 
 @pytest.mark.asyncio

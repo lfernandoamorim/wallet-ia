@@ -1,7 +1,7 @@
 """Testes para o módulo core de segurança (hash, JWT, criptografia)."""
 
 import pytest
-from backend.core.security import (
+from core.security import (
     verify_password,
     get_password_hash,
     create_access_token,

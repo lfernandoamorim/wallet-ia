@@ -2,12 +2,12 @@
 
 import pytest
 from unittest.mock import AsyncMock, MagicMock
-from backend.domains.conversations.execution import Conversation, ConversationMessage
-from backend.domains.conversations.orchestration import (
+from domains.conversations.execution import Conversation, ConversationMessage
+from domains.conversations.orchestration import (
     create_conversation,
     build_conversation_prompt,
 )
-from backend.domains.agents.execution import Agent
+from domains.agents.execution import Agent
 
 
 @pytest.mark.asyncio

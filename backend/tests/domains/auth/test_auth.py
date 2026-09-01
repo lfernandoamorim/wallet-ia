@@ -2,9 +2,9 @@
 
 import pytest
 from unittest.mock import AsyncMock, MagicMock
-from backend.domains.auth.orchestration import authenticate_user, login_for_access_token, refresh_access_token
-from backend.domains.users.execution import User
-from backend.core.security import get_password_hash, create_refresh_token
+from domains.auth.orchestration import authenticate_user, login_for_access_token, refresh_access_token
+from domains.users.execution import User
+from core.security import get_password_hash, create_refresh_token
 
 
 @pytest.mark.asyncio

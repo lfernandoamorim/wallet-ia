@@ -14,9 +14,9 @@ from sqlalchemy import or_, select
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
 
-from backend.core.config import settings
-from backend.domains.knowledge_bases.execution import KBChunk, KBDocument, KnowledgeBase
-from backend.domains.users.execution import User
+from core.config import settings
+from domains.knowledge_bases.execution import KBChunk, KBDocument, KnowledgeBase
+from domains.users.execution import User
 
 
 def extract_text_from_file(file_name: str, content_bytes: bytes) -> str:

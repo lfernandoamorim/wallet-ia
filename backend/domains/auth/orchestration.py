@@ -5,20 +5,20 @@ from sqlalchemy import or_, select
 from sqlalchemy.ext.asyncio import AsyncSession
 from fastapi import HTTPException, status
 
-from backend.core.security import (
+from core.security import (
     create_access_token,
     create_refresh_token,
     decode_token,
     verify_password,
 )
-from backend.domains.users.execution import User
+from domains.users.execution import User
 
 
 def get_user_permissions(user: User) -> set[str]:
     """Retorna o conjunto de códigos de permissões ativas que o usuário possui."""
     if user.is_superadmin:
         # Superadmin possui acesso irrestrito / todas as permissões
-        from backend.core.permissions import PERMISSIONS_CATALOG
+        from core.permissions import PERMISSIONS_CATALOG
         return {p["code"] for p in PERMISSIONS_CATALOG}
 
     perms: set[str] = set()

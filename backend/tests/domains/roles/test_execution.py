@@ -1,7 +1,7 @@
 """Testes para os modelos do domínio de roles e permissões."""
 
 import uuid
-from backend.domains.roles.execution import Role, Permission, RolePermission, UserRole
+from domains.roles.execution import Role, Permission, RolePermission, UserRole
 
 
 def test_role_and_permission_instantiation():

@@ -5,10 +5,10 @@ from fastapi import APIRouter, Depends, status
 from pydantic import BaseModel, EmailStr
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from backend.core.database import get_session
-from backend.core.permissions import PermissionCode
-from backend.domains.auth.directive import require_permission
-from backend.domains.users import orchestration
+from core.database import get_session
+from core.permissions import PermissionCode
+from domains.auth.directive import require_permission
+from domains.users import orchestration
 
 router = APIRouter(tags=["users"])
 

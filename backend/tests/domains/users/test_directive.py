@@ -3,9 +3,9 @@
 import pytest
 from unittest.mock import AsyncMock, patch
 from fastapi.testclient import TestClient
-from backend.main import app
-from backend.core.database import get_session
-from backend.domains.users.execution import User
+from main import app
+from core.database import get_session
+from domains.users.execution import User
 
 client = TestClient(app)
 
@@ -18,7 +18,7 @@ def override_dependencies():
     app.dependency_overrides.clear()
 
 
-@patch("backend.domains.users.orchestration.create_user")
+@patch("domains.users.orchestration.create_user")
 def test_create_user(mock_create_user):
     """Testa criação de usuário com sucesso."""
     mock_user = User(

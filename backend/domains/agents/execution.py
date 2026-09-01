@@ -6,7 +6,7 @@ from sqlalchemy import Column, DateTime, Float, ForeignKey, Integer, String, Tex
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import relationship
 
-from backend.core.base_model import Base
+from core.base_model import Base
 
 
 class AgentKnowledgeBase(Base):

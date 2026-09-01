@@ -7,10 +7,10 @@ from pydantic import BaseModel
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from backend.core.database import get_session
-from backend.core.security import decode_token
-from backend.domains.auth import orchestration
-from backend.domains.users.execution import User
+from core.database import get_session
+from core.security import decode_token
+from domains.auth import orchestration
+from domains.users.execution import User
 
 router = APIRouter(prefix="/auth", tags=["auth"])
 security_scheme = HTTPBearer(auto_error=False)

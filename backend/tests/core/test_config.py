@@ -1,4 +1,4 @@
-from backend.core.config import settings
+from core.config import settings
 
 
 def test_settings_loads_db_url():

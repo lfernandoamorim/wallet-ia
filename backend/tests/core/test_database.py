@@ -2,7 +2,7 @@
 
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from backend.core.database import get_session
+from core.database import get_session
 
 
 async def test_get_session_yields_async_session() -> None:

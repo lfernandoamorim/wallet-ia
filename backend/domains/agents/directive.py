@@ -6,13 +6,13 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
 
-from backend.core.database import get_session
-from backend.core.permissions import PermissionCode
-from backend.domains.agents import orchestration
-from backend.domains.agents.execution import Agent
-from backend.domains.auth.directive import get_current_user
-from backend.domains.auth.orchestration import user_has_permission
-from backend.domains.users.execution import User
+from core.database import get_session
+from core.permissions import PermissionCode
+from domains.agents import orchestration
+from domains.agents.execution import Agent
+from domains.auth.directive import get_current_user
+from domains.auth.orchestration import user_has_permission
+from domains.users.execution import User
 
 router = APIRouter(tags=["agents"])
 

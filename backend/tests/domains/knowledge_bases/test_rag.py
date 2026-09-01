@@ -2,7 +2,7 @@
 
 import io
 import pytest
-from backend.domains.knowledge_bases.orchestration import (
+from domains.knowledge_bases.orchestration import (
     extract_text_from_file,
     split_text_into_chunks,
     cosine_similarity,

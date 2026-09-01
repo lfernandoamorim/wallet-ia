@@ -1,7 +1,7 @@
 """Configuração e fixtures globais do pytest."""
 
 import pytest
-import backend.core.models  # Garante registro de todos os modelos ORM
+import core.models  # Garante registro de todos os modelos ORM
 
 
 @pytest.fixture(autouse=True)

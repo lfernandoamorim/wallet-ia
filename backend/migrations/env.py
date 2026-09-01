@@ -8,9 +8,9 @@ from sqlalchemy import pool
 from sqlalchemy.engine import Connection
 from sqlalchemy.ext.asyncio import async_engine_from_config
 
-import backend.core.models  # Registra todos os modelos ORM
-from backend.core.base_model import Base
-from backend.core.config import settings
+import core.models  # Registra todos os modelos ORM
+from core.base_model import Base
+from core.config import settings
 
 # Objeto de configuração do Alembic
 config = context.config

@@ -4,12 +4,12 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from pydantic import BaseModel
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from backend.core.database import get_session
-from backend.core.permissions import PermissionCode
-from backend.domains.auth.directive import get_current_user
-from backend.domains.auth.orchestration import user_has_permission
-from backend.domains.providers import orchestration
-from backend.domains.users.execution import User
+from core.database import get_session
+from core.permissions import PermissionCode
+from domains.auth.directive import get_current_user
+from domains.auth.orchestration import user_has_permission
+from domains.providers import orchestration
+from domains.users.execution import User
 
 router = APIRouter(prefix="/provider-credentials", tags=["provider-credentials"])
 

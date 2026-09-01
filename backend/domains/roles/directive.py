@@ -5,11 +5,11 @@ from fastapi import APIRouter, Depends, status
 from pydantic import BaseModel
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from backend.core.database import get_session
-from backend.core.permissions import PermissionCode
-from backend.domains.auth.directive import require_permission
-from backend.domains.roles import orchestration
-from backend.domains.users.execution import User
+from core.database import get_session
+from core.permissions import PermissionCode
+from domains.auth.directive import require_permission
+from domains.roles import orchestration
+from domains.users.execution import User
 
 router = APIRouter(prefix="/admin", tags=["admin-roles"])
 

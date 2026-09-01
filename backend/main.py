@@ -4,16 +4,16 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-import backend.core.models  # Garante o mapeamento de todos os modelos ORM
-from backend.core.database import AsyncSessionLocal
-from backend.domains.agents.directive import router as agents_router
-from backend.domains.auth.directive import router as auth_router
-from backend.domains.conversations.directive import router as conversations_router
-from backend.domains.knowledge_bases.directive import router as kb_router
-from backend.domains.providers.directive import router as providers_router
-from backend.domains.roles.directive import router as roles_router
-from backend.domains.roles.orchestration import seed_permissions_and_roles
-from backend.domains.users.directive import router as users_router
+import core.models  # Garante o mapeamento de todos os modelos ORM
+from core.database import AsyncSessionLocal
+from domains.agents.directive import router as agents_router
+from domains.auth.directive import router as auth_router
+from domains.conversations.directive import router as conversations_router
+from domains.knowledge_bases.directive import router as kb_router
+from domains.providers.directive import router as providers_router
+from domains.roles.directive import router as roles_router
+from domains.roles.orchestration import seed_permissions_and_roles
+from domains.users.directive import router as users_router
 
 
 @asynccontextmanager

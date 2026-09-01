@@ -8,24 +8,24 @@ from sqlalchemy import or_, select
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
 
-from backend.core.config import settings
-from backend.domains.agents.execution import Agent
-from backend.domains.conversations.execution import (
+from core.config import settings
+from domains.agents.execution import Agent
+from domains.conversations.execution import (
     Conversation,
     ConversationMessage,
     MessageAttachment,
     ResourceShare,
 )
-from backend.domains.knowledge_bases.orchestration import (
+from domains.knowledge_bases.orchestration import (
     extract_text_from_file,
     retrieve_relevant_chunks,
 )
-from backend.domains.providers.orchestration import (
+from domains.providers.orchestration import (
     ProviderMessage,
     get_provider_adapter,
     resolve_api_key,
 )
-from backend.domains.users.execution import User
+from domains.users.execution import User
 
 
 async def create_conversation(

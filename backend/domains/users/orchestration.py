@@ -7,9 +7,9 @@ from sqlalchemy import or_, select
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
 
-from backend.core.security import get_password_hash
-from backend.domains.roles.execution import Role
-from backend.domains.users.execution import User
+from core.security import get_password_hash
+from domains.roles.execution import Role
+from domains.users.execution import User
 
 
 class UserCreateData(TypedDict, total=False):

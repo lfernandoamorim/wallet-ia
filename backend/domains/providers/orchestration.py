@@ -8,8 +8,8 @@ from pydantic import BaseModel
 from sqlalchemy import or_, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from backend.core.security import decrypt_secret, encrypt_secret
-from backend.domains.providers.execution import ProviderCredential
+from core.security import decrypt_secret, encrypt_secret
+from domains.providers.execution import ProviderCredential
 
 
 class ProviderMessage(BaseModel):

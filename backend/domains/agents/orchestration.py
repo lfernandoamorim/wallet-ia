@@ -7,10 +7,10 @@ from sqlalchemy import or_, select
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
 
-from backend.domains.agents.execution import Agent, AgentKnowledgeBase
-from backend.domains.conversations.execution import ResourceShare
-from backend.domains.knowledge_bases.execution import KnowledgeBase
-from backend.domains.users.execution import User
+from domains.agents.execution import Agent, AgentKnowledgeBase
+from domains.conversations.execution import ResourceShare
+from domains.knowledge_bases.execution import KnowledgeBase
+from domains.users.execution import User
 
 
 async def create_agent(

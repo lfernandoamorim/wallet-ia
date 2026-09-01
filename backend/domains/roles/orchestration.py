@@ -7,9 +7,9 @@ from sqlalchemy import delete, select
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
 
-from backend.core.permissions import DEFAULT_USER_PERMISSIONS, PERMISSIONS_CATALOG
-from backend.domains.roles.execution import Permission, Role, RolePermission, UserRole
-from backend.domains.users.execution import User
+from core.permissions import DEFAULT_USER_PERMISSIONS, PERMISSIONS_CATALOG
+from domains.roles.execution import Permission, Role, RolePermission, UserRole
+from domains.users.execution import User
 
 
 async def seed_permissions_and_roles(session: AsyncSession) -> None:

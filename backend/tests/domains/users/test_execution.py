@@ -1,6 +1,6 @@
 """Testes unitários para a camada de execução (modelos ORM) do domínio de usuários."""
 
-from backend.domains.users.execution import User
+from domains.users.execution import User
 
 
 def test_user_model_instantiation() -> None:

@@ -2,14 +2,14 @@
 
 import pytest
 from unittest.mock import AsyncMock, MagicMock
-from backend.domains.providers.execution import ProviderCredential
-from backend.domains.providers.orchestration import (
+from domains.providers.execution import ProviderCredential
+from domains.providers.orchestration import (
     create_credential,
     resolve_api_key,
     get_provider_adapter,
     ProviderMessage,
 )
-from backend.core.security import encrypt_secret
+from core.security import encrypt_secret
 
 
 @pytest.mark.asyncio
