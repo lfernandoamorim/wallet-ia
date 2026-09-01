@@ -1,9 +1,9 @@
 """Camada de Diretiva para o domínio de Autenticação (Endpoints e Dependências)."""
 
 from typing import Annotated, Callable
-from fastapi import APIRouter, Depends, HTTPException, Request, Response, status
-from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
-from pydantic import BaseModel
+from fastapi import APIRouter, Depends, Form, HTTPException, Request, Response, status
+from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer, OAuth2PasswordRequestForm
+from pydantic import BaseModel, EmailStr
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -11,16 +11,26 @@ from core.database import get_session
 from core.security import decode_token
 from domains.auth import orchestration
 from domains.users.execution import User
+from domains.users import orchestration as users_orchestration
 
 router = APIRouter(prefix="/auth", tags=["auth"])
 security_scheme = HTTPBearer(auto_error=False)
 
 
 class LoginRequest(BaseModel):
-    """Payload para autenticação no sistema."""
+    """Payload JSON para autenticação no sistema."""
 
     username_or_email: str
     password: str
+
+
+class RegisterRequest(BaseModel):
+    """Payload para criação/registro de usuário."""
+
+    email: EmailStr
+    password: str
+    full_name: str | None = None
+    username: str | None = None
 
 
 class RefreshRequest(BaseModel):
@@ -49,9 +59,26 @@ class AuthResponse(BaseModel):
     user: UserInfoResponse
 
 
+@router.post("/token", response_model=AuthResponse)
+async def login_token_form(
+    username: Annotated[str, Form()],
+    password: Annotated[str, Form()],
+    session: AsyncSession = Depends(get_session),
+):
+    """Endpoint OAuth2 / form-urlencoded para autenticação (chamado pelo frontend)."""
+    user = await orchestration.authenticate_user(session, username, password)
+    if not user:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Credenciais inválidas ou usuário inativo.",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+    return orchestration.login_for_access_token(user)
+
+
 @router.post("/login", response_model=AuthResponse)
-async def login(data: LoginRequest, session: AsyncSession = Depends(get_session)):
-    """Endpoint para autenticação de usuários e geração de tokens JWT."""
+async def login_json(data: LoginRequest, session: AsyncSession = Depends(get_session)):
+    """Endpoint JSON para autenticação de usuários e geração de tokens JWT."""
     user = await orchestration.authenticate_user(session, data.username_or_email, data.password)
     if not user:
         raise HTTPException(
@@ -59,6 +86,30 @@ async def login(data: LoginRequest, session: AsyncSession = Depends(get_session)
             detail="Credenciais inválidas ou usuário inativo.",
         )
     return orchestration.login_for_access_token(user)
+
+
+@router.post("/register", response_model=UserInfoResponse, status_code=status.HTTP_201_CREATED)
+async def register(data: RegisterRequest, session: AsyncSession = Depends(get_session)):
+    """Endpoint público para registro inicial de novo usuário."""
+    username = data.username or data.email.split("@")[0]
+    created_user = await users_orchestration.create_user(
+        session,
+        {
+            "email": data.email,
+            "username": username,
+            "password": data.password,
+            "full_name": data.full_name,
+            "is_superadmin": False,
+        },
+    )
+    return UserInfoResponse(
+        id=str(created_user.id),
+        username=created_user.username,
+        email=created_user.email,
+        full_name=created_user.full_name,
+        is_superadmin=created_user.is_superadmin,
+        permissions=list(orchestration.get_user_permissions(created_user)),
+    )
 
 
 @router.post("/refresh", response_model=AuthResponse)

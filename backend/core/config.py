@@ -13,6 +13,9 @@ class Settings(BaseSettings):
     encryption_key: str = "J1d_5m0lV8kG7t9_x6w2P3r7Y1q0z8N5L4m3K2j1H0g="
     redis_url: str = "redis://localhost:6379/0"
     storage_path: str = "./storage"
+    admin_username: str = "admin"
+    admin_email: str = "admin@walletia.local"
+    admin_password: str = "AdminWalletIA@2026"
 
     model_config = SettingsConfigDict(
         env_file=".env",

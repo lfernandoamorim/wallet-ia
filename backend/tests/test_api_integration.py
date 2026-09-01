@@ -50,3 +50,32 @@ def test_get_me_profile(admin_user, admin_token):
         assert data["is_superadmin"] is True
     finally:
         app.dependency_overrides.clear()
+
+
+def test_auth_token_endpoint():
+    """Testa endpoint OAuth2 form-urlencoded /auth/token."""
+    from unittest.mock import patch
+
+    with patch("domains.auth.orchestration.authenticate_user", new_callable=AsyncMock) as mock_auth:
+        mock_user = User(
+            id="11111111-1111-1111-1111-111111111111",
+            email="admin@advance.com.br",
+            username="admin",
+            full_name="Administrador",
+            is_active=True,
+            is_superadmin=True,
+        )
+        mock_user.roles = []
+        mock_auth.return_value = mock_user
+
+        response = client.post(
+            "/auth/token",
+            data={"username": "admin", "password": "correct_password"},
+            headers={"Content-Type": "application/x-www-form-urlencoded"},
+        )
+        assert response.status_code == 200
+        data = response.json()
+        assert "access_token" in data
+        assert "refresh_token" in data
+        assert data["token_type"] == "bearer"
+        assert data["user"]["username"] == "admin"

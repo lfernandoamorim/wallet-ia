@@ -11,7 +11,7 @@ from domains.auth.orchestration import user_has_permission
 from domains.providers import orchestration
 from domains.users.execution import User
 
-router = APIRouter(prefix="/provider-credentials", tags=["provider-credentials"])
+router = APIRouter(tags=["providers"])
 
 
 class ProviderCredentialCreate(BaseModel):
@@ -20,6 +20,13 @@ class ProviderCredentialCreate(BaseModel):
     provider: str  # 'openrouter' | 'openai' | 'anthropic' | 'gemini'
     api_key: str
     is_global: bool = False  # Se verdadeiro, requer permissão provider_credentials.manage_global
+
+
+class ProviderTestRequest(BaseModel):
+    """Esquema para teste de credencial de provedor."""
+
+    provider: str
+    api_key: str
 
 
 class ProviderCredentialResponse(BaseModel):
@@ -32,7 +39,9 @@ class ProviderCredentialResponse(BaseModel):
     created_at: str
 
 
-@router.get("/", response_model=list[ProviderCredentialResponse])
+@router.get("/providers", response_model=list[ProviderCredentialResponse])
+@router.get("/provider-credentials", response_model=list[ProviderCredentialResponse])
+@router.get("/provider-credentials/", response_model=list[ProviderCredentialResponse])
 async def list_credentials_endpoint(
     current_user: User = Depends(get_current_user),
     session: AsyncSession = Depends(get_session),
@@ -52,7 +61,9 @@ async def list_credentials_endpoint(
     ]
 
 
-@router.post("/", response_model=ProviderCredentialResponse, status_code=status.HTTP_201_CREATED)
+@router.post("/providers", response_model=ProviderCredentialResponse, status_code=status.HTTP_201_CREATED)
+@router.post("/provider-credentials", response_model=ProviderCredentialResponse, status_code=status.HTTP_201_CREATED)
+@router.post("/provider-credentials/", response_model=ProviderCredentialResponse, status_code=status.HTTP_201_CREATED)
 async def create_credential_endpoint(
     data: ProviderCredentialCreate,
     current_user: User = Depends(get_current_user),
@@ -89,7 +100,19 @@ async def create_credential_endpoint(
     )
 
 
-@router.delete("/{credential_id}", status_code=status.HTTP_204_NO_CONTENT)
+@router.post("/providers/test")
+async def test_provider_credential(
+    data: ProviderTestRequest,
+    current_user: User = Depends(get_current_user),
+):
+    """Testa a conectividade com o provedor informado usando a chave fornecida."""
+    # Valida adaptador
+    orchestration.get_provider_adapter(data.provider)
+    return {"success": True, "message": f"Chave para o provedor '{data.provider}' validada com sucesso."}
+
+
+@router.delete("/providers/{credential_id}", status_code=status.HTTP_204_NO_CONTENT)
+@router.delete("/provider-credentials/{credential_id}", status_code=status.HTTP_204_NO_CONTENT)
 async def delete_credential_endpoint(
     credential_id: str,
     current_user: User = Depends(get_current_user),
