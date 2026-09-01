@@ -78,7 +78,7 @@ uv run alembic upgrade head
 ### 1. Executando o Backend (API FastAPI)
 Inicie o servidor de desenvolvimento com reload automático:
 ```bash
-uv run uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+uv run uvicorn backend.main:app --reload --host 0.0.0.0 --port 8000
 ```
 - **API Base:** `http://localhost:8000`
 - **Documentação Swagger Interativa:** `http://localhost:8000/docs`
@@ -126,7 +126,7 @@ wallet-ia/
 ├── pyproject.toml                      # Configuração de dependências Python (uv)
 ├── alembic.ini                         # Configurações do Alembic
 │
-├── app/                                # Código-fonte do Backend (Arquitetura em 3 Camadas)
+├── backend/                            # Código-fonte do Backend (Arquitetura em 3 Camadas)
 │   ├── core/                           # Núcleo compartilhado (config, database, security, RBAC)
 │   │   ├── config.py                   # Pydantic Settings
 │   │   ├── database.py                 # Engine assíncrono e sessões

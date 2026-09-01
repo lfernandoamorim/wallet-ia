@@ -2,8 +2,8 @@
 
 import pytest
 from unittest.mock import AsyncMock, MagicMock
-from app.domains.roles.execution import Role, Permission
-from app.domains.roles.orchestration import (
+from backend.domains.roles.execution import Role, Permission
+from backend.domains.roles.orchestration import (
     seed_permissions_and_roles,
     create_custom_role,
     delete_custom_role,

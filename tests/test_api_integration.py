@@ -3,12 +3,12 @@
 import pytest
 from unittest.mock import AsyncMock
 from fastapi.testclient import TestClient
-from app.main import app
-from app.core.database import get_session
-from app.core.security import create_access_token
-from app.domains.auth.directive import get_current_user
-from app.domains.users.execution import User
-from app.domains.roles.execution import Role, Permission
+from backend.main import app
+from backend.core.database import get_session
+from backend.core.security import create_access_token
+from backend.domains.auth.directive import get_current_user
+from backend.domains.users.execution import User
+from backend.domains.roles.execution import Role, Permission
 
 client = TestClient(app)
 

@@ -42,7 +42,7 @@ A **Plataforma Wallet IA** é uma solução self-hosted corporativa de orquestra
 O backend adota o padrão **Domain-Driven Design (DDD)** estruturado em **3 Camadas Isoladas**, garantindo desacoplamento entre transporte HTTP, regras de negócio e operações de banco de dados.
 
 ```text
-app/
+backend/
 ├── core/                               # Núcleo compartilhado da aplicação
 │   ├── config.py                       # Configurações globais (Settings via .env)
 │   ├── database.py                     # Configuração de AsyncEngine e get_session
