@@ -187,6 +187,7 @@ async def get_agent_endpoint(
 
 
 @router.patch("/agents/{agent_id}", response_model=AgentResponse)
+@router.put("/agents/{agent_id}", response_model=AgentResponse)
 async def update_agent_endpoint(
     agent_id: str,
     data: AgentUpdate,

@@ -5,7 +5,8 @@ export interface Agent {
   avatar_url?: string;
   system_prompt: string;
   provider: 'openrouter' | 'openai' | 'anthropic' | 'gemini';
-  model_name: string;
+  model: string;
+  model_name?: string;
   temperature: number;
   max_tokens?: number;
   visibility: 'private' | 'shared' | 'public';

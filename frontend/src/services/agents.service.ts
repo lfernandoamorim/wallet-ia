@@ -19,7 +19,7 @@ export const agentsService = {
 
   async update(id: string, data: Partial<Agent>): Promise<Agent> {
     return apiFetch<Agent>(`/agents/${id}`, {
-      method: 'PUT',
+      method: 'PATCH',
       body: JSON.stringify(data),
     });
   },

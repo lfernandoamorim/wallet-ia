@@ -4,6 +4,82 @@ import { Modal } from '../ui/Modal';
 import { Input } from '../ui/Input';
 import { Button } from '../ui/Button';
 
+export const PROVIDER_MODELS: Record<
+  'openrouter' | 'openai' | 'anthropic' | 'gemini',
+  Array<{ id: string; label: string }>
+> = {
+  openrouter: [
+    // OpenAI (incluindo gpt-4.1-mini como padrão)
+    { id: 'openai/gpt-4.1-mini', label: 'OpenAI: GPT-4.1 Mini (Padrão Recomendado)' },
+    { id: 'openai/gpt-4.1', label: 'OpenAI: GPT-4.1' },
+    { id: 'openai/gpt-4o', label: 'OpenAI: GPT-4o' },
+    { id: 'openai/gpt-4o-mini', label: 'OpenAI: GPT-4o Mini' },
+    { id: 'openai/o3-mini', label: 'OpenAI: o3-mini (Reasoning)' },
+    { id: 'openai/o1', label: 'OpenAI: o1 (Reasoning)' },
+    // Google Gemini
+    { id: 'google/gemini-2.5-pro', label: 'Google: Gemini 2.5 Pro' },
+    { id: 'google/gemini-2.0-flash-001', label: 'Google: Gemini 2.0 Flash' },
+    { id: 'google/gemini-2.0-flash-thinking-exp-01-21', label: 'Google: Gemini 2.0 Flash Thinking' },
+    { id: 'google/gemini-pro-1.5', label: 'Google: Gemini 1.5 Pro' },
+    { id: 'google/gemini-flash-1.5', label: 'Google: Gemini 1.5 Flash' },
+    // Anthropic Claude
+    { id: 'anthropic/claude-3.7-sonnet', label: 'Anthropic: Claude 3.7 Sonnet (Hybrid Reasoning)' },
+    { id: 'anthropic/claude-3.5-sonnet', label: 'Anthropic: Claude 3.5 Sonnet' },
+    { id: 'anthropic/claude-3.5-haiku', label: 'Anthropic: Claude 3.5 Haiku' },
+    { id: 'anthropic/claude-3-opus', label: 'Anthropic: Claude 3 Opus' },
+    // Kimi (Moonshot AI)
+    { id: 'moonshotai/kimi-k1.5', label: 'Kimi: Moonshot Kimi K1.5' },
+    { id: 'moonshotai/moonshot-v1-128k', label: 'Kimi: Moonshot v1 (128k context)' },
+    { id: 'moonshotai/moonshot-v1-32k', label: 'Kimi: Moonshot v1 (32k context)' },
+    { id: 'moonshotai/moonshot-v1-8k', label: 'Kimi: Moonshot v1 (8k context)' },
+    // Meta Llama
+    { id: 'meta-llama/llama-3.3-70b-instruct', label: 'Meta: Llama 3.3 70B Instruct' },
+    { id: 'meta-llama/llama-3.1-405b-instruct', label: 'Meta: Llama 3.1 405B Instruct' },
+    { id: 'meta-llama/llama-3.1-70b-instruct', label: 'Meta: Llama 3.1 70B Instruct' },
+    { id: 'meta-llama/llama-3.1-8b-instruct', label: 'Meta: Llama 3.1 8B Instruct' },
+    { id: 'meta-llama/llama-3-8b-instruct', label: 'Meta: Llama 3 8B Instruct' },
+    // DeepSeek, Qwen & Mistral
+    { id: 'deepseek/deepseek-r1', label: 'DeepSeek: DeepSeek R1 (Reasoning)' },
+    { id: 'deepseek/deepseek-chat', label: 'DeepSeek: DeepSeek V3 (Chat)' },
+    { id: 'qwen/qwen-2.5-72b-instruct', label: 'Qwen: Qwen 2.5 72B Instruct' },
+    { id: 'mistralai/mistral-large-2407', label: 'Mistral: Mistral Large 2' },
+  ],
+  openai: [
+    { id: 'gpt-4.1-mini', label: 'GPT-4.1 Mini (Padrão Recomendado)' },
+    { id: 'gpt-4.1', label: 'GPT-4.1' },
+    { id: 'gpt-4o', label: 'GPT-4o (Multimodal & Rápido)' },
+    { id: 'gpt-4o-mini', label: 'GPT-4o Mini (Econômico)' },
+    { id: 'o3-mini', label: 'o3-mini (Raciocínio Rápido)' },
+    { id: 'o1', label: 'o1 (Raciocínio Avançado)' },
+    { id: 'o1-mini', label: 'o1-mini (Raciocínio Leve)' },
+    { id: 'gpt-4-turbo', label: 'GPT-4 Turbo' },
+    { id: 'gpt-4', label: 'GPT-4' },
+    { id: 'gpt-3.5-turbo', label: 'GPT-3.5 Turbo' },
+  ],
+  anthropic: [
+    { id: 'claude-3-7-sonnet-20250219', label: 'Claude 3.7 Sonnet (Hybrid Reasoning)' },
+    { id: 'claude-3-5-sonnet-20241022', label: 'Claude 3.5 Sonnet (Recomendado)' },
+    { id: 'claude-3-5-haiku-20241022', label: 'Claude 3.5 Haiku (Rápido)' },
+    { id: 'claude-3-opus-20240229', label: 'Claude 3 Opus (Alta complexidade)' },
+    { id: 'claude-3-haiku-20240307', label: 'Claude 3 Haiku' },
+  ],
+  gemini: [
+    { id: 'gemini-2.5-pro', label: 'Gemini 2.5 Pro (Próxima Geração)' },
+    { id: 'gemini-2.0-flash', label: 'Gemini 2.0 Flash (Última Geração)' },
+    { id: 'gemini-2.0-flash-thinking-exp-01-21', label: 'Gemini 2.0 Flash Thinking' },
+    { id: 'gemini-2.0-pro-exp-02-05', label: 'Gemini 2.0 Pro Experimental' },
+    { id: 'gemini-1.5-pro', label: 'Gemini 1.5 Pro (Janela 2M tokens)' },
+    { id: 'gemini-1.5-flash', label: 'Gemini 1.5 Flash (Rápido)' },
+    { id: 'gemini-1.0-pro', label: 'Gemini 1.0 Pro' },
+  ],
+};
+
+function getDefaultModelForProvider(p: 'openrouter' | 'openai' | 'anthropic' | 'gemini'): string {
+  if (p === 'openrouter') return 'openai/gpt-4.1-mini';
+  if (p === 'openai') return 'gpt-4.1-mini';
+  return PROVIDER_MODELS[p][0]?.id || '';
+}
+
 interface AgentModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -21,7 +97,8 @@ export const AgentModal: React.FC<AgentModalProps> = ({
   const [description, setDescription] = useState('');
   const [systemPrompt, setSystemPrompt] = useState('');
   const [provider, setProvider] = useState<'openrouter' | 'openai' | 'anthropic' | 'gemini'>('openrouter');
-  const [modelName, setModelName] = useState('meta-llama/llama-3-8b-instruct');
+  const [modelName, setModelName] = useState('openai/gpt-4.1-mini');
+  const [isCustomModel, setIsCustomModel] = useState(false);
   const [temperature, setTemperature] = useState(0.7);
   const [visibility, setVisibility] = useState<'private' | 'shared' | 'public'>('private');
   const [isLoading, setIsLoading] = useState(false);
@@ -29,11 +106,16 @@ export const AgentModal: React.FC<AgentModalProps> = ({
 
   useEffect(() => {
     if (initialData) {
+      const p = (initialData.provider || 'openrouter') as 'openrouter' | 'openai' | 'anthropic' | 'gemini';
+      const defaultM = getDefaultModelForProvider(p);
+      const m = initialData.model || initialData.model_name || defaultM;
       setName(initialData.name || '');
       setDescription(initialData.description || '');
       setSystemPrompt(initialData.system_prompt || '');
-      setProvider(initialData.provider || 'openrouter');
-      setModelName(initialData.model_name || 'meta-llama/llama-3-8b-instruct');
+      setProvider(p);
+      setModelName(m);
+      const isKnown = (PROVIDER_MODELS[p] || []).some((item) => item.id.toLowerCase() === m.toLowerCase());
+      setIsCustomModel(!isKnown);
       setTemperature(initialData.temperature ?? 0.7);
       setVisibility(initialData.visibility || 'private');
     } else {
@@ -41,15 +123,37 @@ export const AgentModal: React.FC<AgentModalProps> = ({
       setDescription('');
       setSystemPrompt('Você é um assistente de IA prestativo e corporativo da Wallet IA.');
       setProvider('openrouter');
-      setModelName('meta-llama/llama-3-8b-instruct');
+      setModelName(getDefaultModelForProvider('openrouter'));
+      setIsCustomModel(false);
       setTemperature(0.7);
       setVisibility('private');
     }
     setError(null);
   }, [initialData, isOpen]);
 
+  const handleProviderChange = (newProvider: 'openrouter' | 'openai' | 'anthropic' | 'gemini') => {
+    setProvider(newProvider);
+    setIsCustomModel(false);
+    const defaultModel = getDefaultModelForProvider(newProvider);
+    setModelName(defaultModel);
+  };
+
+  const handleModelSelectChange = (value: string) => {
+    if (value === '__custom__') {
+      setIsCustomModel(true);
+      setModelName('');
+    } else {
+      setIsCustomModel(false);
+      setModelName(value);
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!modelName.trim()) {
+      setError('Por favor, selecione ou informe o identificador do modelo.');
+      return;
+    }
     setError(null);
     setIsLoading(true);
 
@@ -59,7 +163,7 @@ export const AgentModal: React.FC<AgentModalProps> = ({
         description,
         system_prompt: systemPrompt,
         provider,
-        model_name: modelName,
+        model: modelName.trim(),
         temperature: Number(temperature),
         visibility,
         knowledge_base_ids: initialData?.knowledge_base_ids || [],
@@ -71,6 +175,8 @@ export const AgentModal: React.FC<AgentModalProps> = ({
       setIsLoading(false);
     }
   };
+
+  const currentModels = PROVIDER_MODELS[provider] || [];
 
   return (
     <Modal
@@ -125,9 +231,9 @@ export const AgentModal: React.FC<AgentModalProps> = ({
             </label>
             <select
               id="providerSelect"
-              className="w-full bg-slate-900 border border-slate-700/80 rounded-lg px-3.5 py-2 text-sm text-slate-100 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors"
+              className="w-full bg-slate-900 border border-slate-700/80 rounded-lg px-3.5 py-2 text-sm text-slate-100 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors cursor-pointer"
               value={provider}
-              onChange={(e) => setProvider(e.target.value as any)}
+              onChange={(e) => handleProviderChange(e.target.value as any)}
             >
               <option value="openrouter">OpenRouter</option>
               <option value="openai">OpenAI</option>
@@ -136,15 +242,38 @@ export const AgentModal: React.FC<AgentModalProps> = ({
             </select>
           </div>
 
-          <Input
-            id="modelName"
-            label="Identificador do Modelo"
-            required
-            placeholder="ex: gpt-4o, claude-3-5-sonnet, etc."
-            value={modelName}
-            onChange={(e) => setModelName(e.target.value)}
-          />
+          <div className="space-y-1.5">
+            <label htmlFor="modelSelect" className="block text-xs font-medium text-slate-300">
+              Identificador do Modelo
+            </label>
+            <select
+              id="modelSelect"
+              className="w-full bg-slate-900 border border-slate-700/80 rounded-lg px-3.5 py-2 text-sm text-slate-100 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors cursor-pointer"
+              value={isCustomModel ? '__custom__' : modelName}
+              onChange={(e) => handleModelSelectChange(e.target.value)}
+            >
+              {currentModels.map((m) => (
+                <option key={m.id} value={m.id}>
+                  {m.label} ({m.id})
+                </option>
+              ))}
+              <option value="__custom__">Outro (digitar manualmente)...</option>
+            </select>
+          </div>
         </div>
+
+        {isCustomModel && (
+          <div className="animate-in fade-in duration-200">
+            <Input
+              id="customModelInput"
+              label="Nome / Identificador do Modelo Personalizado"
+              required
+              placeholder="ex: mistralai/mixtral-8x7b-instruct, gpt-4o-2024-08-06"
+              value={modelName}
+              onChange={(e) => setModelName(e.target.value)}
+            />
+          </div>
+        )}
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div className="space-y-1.5">

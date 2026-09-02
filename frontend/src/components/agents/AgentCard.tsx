@@ -45,7 +45,7 @@ export const AgentCard: React.FC<AgentCardProps> = ({ agent, onEdit, onDelete })
                 </Badge>
                 <span className="text-[11px] text-slate-400 flex items-center gap-1">
                   <Cpu className="w-3 h-3 text-slate-500" />
-                  {agent.provider.toUpperCase()} / {agent.model_name}
+                  {agent.provider.toUpperCase()} / {agent.model || agent.model_name}
                 </span>
               </div>
             </div>

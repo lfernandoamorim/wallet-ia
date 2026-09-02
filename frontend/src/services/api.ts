@@ -75,7 +75,17 @@ export async function apiFetch<T = unknown>(endpoint: string, options: RequestIn
     let errorMessage = `Erro HTTP ${response.status}`;
     try {
       const parsed = JSON.parse(errorBody);
-      errorMessage = parsed.detail || errorMessage;
+      if (typeof parsed.detail === 'string') {
+        errorMessage = parsed.detail;
+      } else if (Array.isArray(parsed.detail)) {
+        errorMessage = parsed.detail
+          .map((d: any) => `${d.loc ? d.loc.filter((l: string) => l !== 'body').join('.') + ': ' : ''}${d.msg}`)
+          .join(' | ');
+      } else if (parsed.detail && typeof parsed.detail === 'object') {
+        errorMessage = JSON.stringify(parsed.detail);
+      } else if (parsed.message) {
+        errorMessage = parsed.message;
+      }
     } catch {
       // Usa mensagem padrao
     }
